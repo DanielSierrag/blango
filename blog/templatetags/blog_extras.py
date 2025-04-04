@@ -2,6 +2,7 @@ from django.contrib.auth import get_user_model
 from django.utils.html import escape, format_html
 from django.utils.safestring import mark_safe
 from django import template
+from blog.models import Post
 
 # Register the filters in the template library
 register = template.Library()
@@ -31,3 +32,24 @@ def author_details(author, current_user=None):
         suffix = ""
     
     return format_html('{}{}{}', prefix, name, suffix)
+
+@register.simple_tag
+def row(extra_class=''):
+  return format_html('<div class="row {}">', extra_class)
+
+@register.simple_tag
+def endrow():
+  return format_html('</div>')
+
+@register.simple_tag
+def col(extra_class=''):
+  return format_html('<div class="col {}">', extra_class)
+
+@register.simple_tag
+def endcol():
+  return format_html('</div>')
+
+@register.inclusion_tag('blog/post-list.html')
+def recent_posts(post):
+  posts = Post.objects.exclude(pk=post.pk).order_by('-published_at')[:5]
+  return {'posts': posts,'title': 'Recent Posts'}
