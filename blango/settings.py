@@ -91,6 +91,8 @@ class Dev(Configuration):
         }
     }
 
+    EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
 
     # Password validation
     # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -199,6 +201,9 @@ class Dev(Configuration):
 
     # Django Debug Toolbar
     INTERNAL_IPS = ["192.168.10.226"] # Allowed IPs to use DjDT
+
+    # Django Registration
+    ACCOUNT_ACTIVATION_DAYS = 7
 
   
 class Prod(Dev):

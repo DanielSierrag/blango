@@ -16,12 +16,24 @@ Including another URLconf
 from django.urls import path, include
 from django.contrib import admin
 from django.conf import settings
+from blango_auth import views as ba_views
 import debug_toolbar
 import blog
+
+from django_registration.backends.activation.views import RegistrationView
+from blango_auth.forms import BlangoRegistrationForm
 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path(
+    "accounts/register/",
+    RegistrationView.as_view(form_class=BlangoRegistrationForm),
+    name="django_registration_register",
+),
+    path('accounts/', include('django_registration.backends.activation.urls')),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/profile/', ba_views.profile, name='profile'),
     path('blog/', include('blog.urls')),
     path('ip/', blog.views.get_ip)
 ]
