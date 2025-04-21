@@ -30,9 +30,10 @@ urlpatterns = [
     "accounts/register/",
     RegistrationView.as_view(form_class=BlangoRegistrationForm),
     name="django_registration_register",
-),
+    ),
     path('accounts/', include('django_registration.backends.activation.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
+    path("accounts/", include('allauth.urls')),
     path('accounts/profile/', ba_views.profile, name='profile'),
     path('blog/', include('blog.urls')),
     path('ip/', blog.views.get_ip)

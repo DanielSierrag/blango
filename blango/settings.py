@@ -41,12 +41,17 @@ class Dev(Configuration):
         'django.contrib.contenttypes',
         'django.contrib.sessions',
         'django.contrib.messages',
+        'django.contrib.sites',
         'django.contrib.staticfiles',
         'blango_auth.apps.BlangoAuthConfig',
         'blog.apps.BlogConfig',
         'crispy_forms',
         'crispy_bootstrap5',
         'debug_toolbar',
+        'allauth',
+        'allauth.account',
+        'allauth.socialaccount',
+        'allauth.socialaccount.providers.google'
     ]
 
     MIDDLEWARE = [
@@ -185,6 +190,9 @@ class Dev(Configuration):
         },
     }
 
+    # SITES
+    SITE_ID = 1
+
     # CODIO Config (Just for let django run in codio plantofplatform)
     X_FRAME_OPTIONS = 'ALLOW-FROM ' + os.environ.get('CODIO_HOSTNAME') + '-8000.codio.io'
     CSRF_COOKIE_SAMESITE = None
@@ -204,6 +212,12 @@ class Dev(Configuration):
 
     # Django Registration
     ACCOUNT_ACTIVATION_DAYS = 7
+
+    # Django allauth
+    ACCOUNT_USER_MODEL_USERNAME_FIELD = None # Tells there is on username field on the User model
+    ACCOUNT_EMAIL_REQUIRED = True # Indicates to the third-party app that an email is required
+    ACCOUNT_USERNAME_REQUIRED = False
+    ACCOUNT_AUTHENTICATION_METHOD = "email"
 
   
 class Prod(Dev):
