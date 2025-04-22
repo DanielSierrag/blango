@@ -36,6 +36,7 @@ urlpatterns = [
     path("accounts/", include('allauth.urls')),
     path('accounts/profile/', ba_views.profile, name='profile'),
     path('blog/', include('blog.urls')),
+    path('api/v1/', include('blog.api_urls')),
     path('ip/', blog.views.get_ip)
 ]
 
