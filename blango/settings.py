@@ -52,7 +52,8 @@ class Dev(Configuration):
         'allauth',
         'allauth.account',
         'allauth.socialaccount',
-        'allauth.socialaccount.providers.google'
+        'allauth.socialaccount.providers.google',
+        'rest_framework.authtoken',
     ]
 
     MIDDLEWARE = [
@@ -219,6 +220,15 @@ class Dev(Configuration):
     ACCOUNT_EMAIL_REQUIRED = True # Indicates to the third-party app that an email is required
     ACCOUNT_USERNAME_REQUIRED = False
     ACCOUNT_AUTHENTICATION_METHOD = "email"
+
+    # Django REST Framework
+    REST_FRAMEWORK = {
+        'DEFAULT_AUTHENTICATION_CLASES': [
+            'rest_framework.authentication.TokenAuthentication',
+            'rest_framework.authentication.SessionAuthentication',
+            'rest_framework.authentication.BasicAuthentication',
+        ]
+    }
 
   
 class Prod(Dev):
