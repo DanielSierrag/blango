@@ -16,7 +16,7 @@ class AuthorProfile (models.Model):
         return f"{self.__class__.__name__} object for {self.user}"
 
 class Tag(models.Model):
-    value = models.TextField(max_length=100)
+    value = models.TextField(max_length=100, unique=True)
 
     def __str__(self):
         return self.value

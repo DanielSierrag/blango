@@ -5,7 +5,8 @@ from rest_framework.authentication import TokenAuthentication
 from blog.api.permissions import AuthorModifyOrReadOnly, IsAdminUserForObject
 
 from blog.models import Post
-from blog.api.serializers import PostSerializer
+from blango_auth.models import User
+from blog.api.serializers import PostSerializer, UserSerializer
 
 
 class PostListCreateView(generics.ListCreateAPIView):
@@ -19,3 +20,8 @@ class PostRetieveUpdateDeleteView(generics.RetrieveUpdateDestroyAPIView):
   permission_classes = [AuthorModifyOrReadOnly | IsAdminUserForObject]
   queryset = Post.objects.all()
   serializer_class = PostSerializer
+
+class UserDetailView(generics.RetrieveAPIView):
+  queryset = User.objects.all()
+  serializer_class = UserSerializer
+  lookup_field = 'email'
