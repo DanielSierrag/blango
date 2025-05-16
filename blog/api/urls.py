@@ -27,6 +27,12 @@ urlpatterns = [
 # Post & Tags URLs
 urlpatterns += router.urls
 
+urlpatterns += [path(
+  'posts/by-time/<str:period_name>/',
+  PostViewSet.as_view({'get': 'list'}),
+  name='posts_by_time'
+)]
+
 # Documentation urls
 schema_view = get_schema_view(
   openapi.Info(
