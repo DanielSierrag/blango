@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 import dj_database_url
 from pathlib import Path
+from datetime import timedelta
 from configurations import values
 from configurations import Configuration
 
@@ -228,6 +229,7 @@ class Dev(Configuration):
         "DEFAULT_AUTHENTICATION_CLASSES": [
             "rest_framework.authentication.TokenAuthentication",
             "rest_framework.authentication.BasicAuthentication",
+            "rest_framework_simplejwt.authentication.JWTAuthentication",
             "rest_framework.authentication.SessionAuthentication",
         ],
         'DEFAULT_PERMISSION_CLASSES': [
@@ -251,6 +253,12 @@ class Dev(Configuration):
             'django_filters.rest_framework.DjangoFilterBackend',
             'rest_framework.filters.OrderingFilter',
         ],
+    }
+
+    # Simple JWT configuration
+    SIMPLE_JWT = {
+        'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+        'REFRESH_TOKEN_LIFETIME': timedelta(days=7),
     }
 
     # Swagger Documentation configuration

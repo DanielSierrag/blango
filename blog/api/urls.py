@@ -6,6 +6,7 @@ from drf_yasg.views import get_schema_view
 import os
 
 from rest_framework.urlpatterns import format_suffix_patterns
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 
 from blog.api.views import (
   PostViewSet,
@@ -22,6 +23,12 @@ urlpatterns = [
     path("users/<str:email>", UserDetailView.as_view(), name='api_user_detail'),
     path("auth/", include("rest_framework.urls")),
     path('get-token/', token_views.obtain_auth_token, name='get_token')
+]
+
+# JWT URLs
+urlpatterns += [
+  path('jwt/', TokenObtainPairView.as_view(), name='jwt_obtain_pair'),
+  path('jwt/refresh/iews', TokenRefreshView.as_view(), name='jwt_refresh'),
 ]
 
 # Post & Tags URLs
