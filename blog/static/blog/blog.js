@@ -1,9 +1,18 @@
-const theNumber = 1
-// let name = 'Ben'
-
-if (theNumber === 1) {
-  let name = 'Leo'
-  alert(name)
+function sayHello(yourName) {
+  if (yourName === undefined) {
+      console.log('Hello, no name')
+  } else {
+       console.log('Hello, ' + yourName)
+  }
 }
 
-alert()
+const yourName = 'Daniel'  // Put your name here
+
+console.log('Before setTimeout')
+
+setTimeout(() => {
+    sayHello(yourName)
+  }, 2000
+)
+
+console.log('After setTimeout')
