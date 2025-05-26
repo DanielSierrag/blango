@@ -26,19 +26,20 @@ from blango_auth.forms import BlangoRegistrationForm
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path(
-    "accounts/register/",
-    RegistrationView.as_view(form_class=BlangoRegistrationForm),
-    name="django_registration_register",
-    ),
-    path('accounts/', include('django_registration.backends.activation.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
-    path("accounts/", include('allauth.urls')),
-    path('accounts/profile/', ba_views.profile, name='profile'),
-    path('blog/', include('blog.urls')),
-    path('api/v1/', include('blog.api.urls')),
-    path('ip/', blog.views.get_ip)
+  path('admin/', admin.site.urls),
+  path(
+  "accounts/register/",
+  RegistrationView.as_view(form_class=BlangoRegistrationForm),
+  name="django_registration_register",
+  ),
+  path('accounts/', include('django_registration.backends.activation.urls')),
+  path('accounts/', include('django.contrib.auth.urls')),
+  path("accounts/", include('allauth.urls')),
+  path('accounts/profile/', ba_views.profile, name='profile'),
+  path('blog/', include('blog.urls')),
+  path('api/v1/', include('blog.api.urls')),
+  path('ip/', blog.views.get_ip),
+  path('post-table', blog.views.post_table, name='blog-table'),
 ]
 
 if settings.DEBUG:
