@@ -18,31 +18,38 @@ class PostRow extends React.Component {
       <td>{post.tags.join(', ')}</td>
       <td>{post.slug}</td>
       <td>{post.summary}</td>
-      <td><a href={'/post/' + post.slug + '/'}>View</a></td>
+      <td><a href={'blog/post/' + post.slug}>View</a></td>
     </tr>
   }
 }
 
 class PostTable extends React.Component {
   state = {
-    dataLoaded: true,
-    data: {
-      results: [
-        {
-          id: 15,
-          tags: [
-            'django', 'react'
-          ],
-          'hero_image': {
-            'thumbnail': '/media/__sized__/hero_images/snake-419043_1920-thumbnail-100x100-70.jpg',
-            'full_size': '/media/hero_images/snake-419043_1920.jpg'
-          },
-          title: 'Test Post',
-          slug: 'test-post',
-          summary: 'A test post, created for Django/React.'
+    dataLoaded: false,
+    data: null
+  }
+
+  componentDidMount() {
+    fetch(this.props.url).then(response => {
+      if (response.status !== 200) {
+        throw new Error('Invalid status from server: ' + response.statusText)
+      }
+
+      return response.json()
+    }).then(data => {
+      this.setState({
+        dataLoaded: true,
+        data: data
+      })
+    }).catch(e => {
+      console.error(e)
+      this.setState({
+        dataLoaded:false,
+        data: {
+          results: [],
         }
-      ]
-    }
+      })
+    })
   }
 
   render () {
@@ -81,6 +88,9 @@ class PostTable extends React.Component {
 
 const domContainer = document.getElementById('react_root')
 ReactDOM.render(
-  React.createElement(PostTable),
+  React.createElement(
+    PostTable,
+    {url: postListUrl}
+  ),
   domContainer
 )
